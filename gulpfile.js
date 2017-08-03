@@ -5,6 +5,7 @@ var sass = require('gulp-sass');
 var prefixer = require('gulp-autoprefixer');
 var uglify = require('gulp-uglify');
 var rigger = require('gulp-rigger');
+var plumber = require('gulp-plumber');
 // For server
 var browserSync = require('browser-sync');
 var	reload = browserSync.reload;
@@ -67,6 +68,7 @@ gulp.task('MakeCssGreatAgain', function() {
 
 gulp.task('MakeJsGreatAgain', function() {
 	gulp.src(path.src.js)
+		.pipe(plumber())
 		.pipe(uglify())
 		.pipe(gulp.dest(path.build.js))
 		.pipe(reload({
