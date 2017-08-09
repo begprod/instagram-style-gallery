@@ -1,4 +1,5 @@
 $(document).ready(function () {
+	loadData();
 	var navState = function() {
 		$('.popup__nav--left').removeClass('popup__nav--disable');
 		$('.popup__nav--right').removeClass('popup__nav--disable');
@@ -18,8 +19,6 @@ $(document).ready(function () {
 		} else {
 			$('.popup__nav--right').removeClass('popup__nav--disable');
 		}
-		// curIndex === navState.totalUnits && $('.popup__nav--right').addClass('popup__nav--disable');
-		// curIndex === 0 && $('.popup__nav--left').addClass('popup__nav--disable');
 	}
 
 	$('.grid__unit').click(function() {
@@ -47,7 +46,8 @@ $(document).ready(function () {
 			nextUnit.first().addClass('grid__unit--active');
 		}
 		navState();
-	})
+	});
+
 });
 
 var modalContent = '';
@@ -56,21 +56,17 @@ showModal = function(that) {
 	var title = that.data('title');
 	var descr = that.data('descr');
 	var imgs = that.data('img');
-	var imgsReplace = imgs.replace('/>', "/>,");
-	var imgSplit = imgsReplace.split(',');
 
-	// modalContent = '<div class="popup__wrapper"><div class="popup__nav popup__nav--left"></div><div class="popup__nav popup__nav--right"></div>';
-	// modalContent += '<div class="popup__slider">' + imgs;
-	// modalContent += '</div>';
-	// modalContent += '<div class="popup__content">';
-	// modalContent += '<h3 class="popup__title">' + title + '</h3>';
-	// modalContent += '<p class="popup__descr">' + descr + '</p>';
-	// modalContent += '</div>';
-	// modalContent += '</div>';
+	modalContent = '<div class="popup__close"><i class="fa fa-times" aria-hidden="true"></i></div><div class="popup__wrapper"><div class="popup__nav popup__nav--left"><i class="fa fa-chevron-left" aria-hidden="true"></i></div><div class="popup__nav popup__nav--right"><i class="fa fa-chevron-right" aria-hidden="true"></i></div>';
+	modalContent += '<div class="popup__slider" style="background-image:url(' + imgs + ')">';
+	modalContent += '</div>';
+	modalContent += '<div class="popup__content">';
+	modalContent += '<h3 class="popup__title">' + title + '</h3>';
+	modalContent += '<p class="popup__descr">' + descr + '</p>';
+	modalContent += '</div>';
+	modalContent += '</div>';
 
-	$('.popup__slider').html(imgSplit);
-	$('.popup__title').html(title);
-	$('.popup__descr').html(descr);
+	$('.popup').html(modalContent);
 
 	$('.popup').addClass('popup--active');
 	$('.overlay').addClass('overlay--active');
@@ -78,5 +74,37 @@ showModal = function(that) {
 	$('.popup__close').click(function() {
 		$(this).parent().removeClass('popup--active');
 		$('.overlay').removeClass('overlay--active');
+	});
+}
+
+
+
+
+function loadData() {
+	$.ajax({
+		type: 'get',
+		async: false,
+		cache: false,
+		url: './data/images.json',
+		dataType: 'json',
+		success: function (response, status) {
+			$.each(response, function (i) {
+				$('.grid').append(
+					'<div class="grid__unit grid__unit--30" data-img="' 
+						+ response[i].img + 
+					'" data-title="' 
+						+ response[i].profile_name + 
+					'" data-descr="' 
+						+ response[i].location + 
+					'" data-index="' 
+						+ response[i].id + 
+					'" style="background-image: url(' 
+						+ response[i].img + 
+					')"><img class="visuallyhidden" src="' 
+						+  response[i].img + 
+					'"/></div>'
+				);
+			});
+		}
 	});
 }
