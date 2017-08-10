@@ -1,17 +1,37 @@
 html
-    box-sizing: border-box
+	box-sizing: border-box
 
 *,
 *::after,
 *::before
-    box-sizing: inherit
+	box-sizing: inherit
 
 body
-	padding: 50px 0
+	font-family: $mainFont
+
+.visuallyhidden
+	border: 0
+	clip: rect(0 0 0 0)
+	height: 1px
+	margin: -1px
+	overflow: hidden
+	padding: 0
+	position: absolute
+	width: 1px
+
+.visuallyhidden.focusable:active,
+.visuallyhidden.focusable:focus
+	clip: auto
+	height: auto
+	margin: 0
+	overflow: visible
+	position: static
+	width: auto
 
 .wrapper
 	width: 1024px
 	margin: 0 auto
+
 .overlay
 	display: none
 	position: fixed
@@ -25,6 +45,83 @@ body
 	z-index: 5
 	&--active
 		display: block
+
+.profile-header
+	margin-top: 44px
+	margin-bottom: 44px
+	.wrapper
+		display: flex
+		flex-direction: row
+		flex-wrap: nowrap
+		justify-content: space-around
+		align-items: center
+		min-height: 150px
+	&__left
+		flex-grow: 1
+		min-width: 25%
+		max-width: 35%
+		margin-right: 40px
+		overflow: hidden
+		text-align: center
+	&__img
+		max-width: 160px
+		max-height: 160px
+		margin: 0 auto
+		img
+			width: 100%
+			border-radius: 50%
+	&__right
+		flex-grow: 1
+		max-width: 65%
+	&__name
+		margin-bottom: 20px
+		font-size: 32px
+		font-weight: 200
+		line-height: 40px
+		text-transform: lowercase
+	&__info
+		margin-bottom: 20px
+	&__descr
+		margin: 0
+		font-size: 16px
+		line-height: 24px
+.info-list
+	display: flex
+	padding: 0
+	list-style: none
+	&__item
+		margin-right: 40px
+		&:last-child
+			margin-right: 0
+	&__num
+		font-weight: 800
+
+.grid
+	display: flex
+	flex-direction: row
+	flex-wrap: wrap
+	justify-content: center
+	align-items: flex-start
+	&__unit
+		overflow: hidden
+		background-color: gray
+		background-repeat: no-repeat
+		background-position: center
+		background-size: cover
+		cursor: pointer
+		&:hover
+			opacity: .7
+		&:last-child
+			margin: 0
+		&--30
+			flex-basis: 293px
+			width: 293px
+			height: 293px
+			margin-right: 38px
+			margin-bottom: 50px
+			&:nth-child(3n)
+				margin-right: 0
+
 .popup
 	display: none
 	position: fixed
@@ -34,19 +131,20 @@ body
 	width: 900px
 	height: 600px
 	margin: 0 auto
-	background-color: white
+	background-color: pink
 	z-index: 10
-	&__slider
-		float: left
+	user-select: none
+	&__img
 		background-color: lightgray
-		width: 600px !important
+		width: 600px
 		height: 600px
-		overflow: hidden
+		background-repeat: no-repeat
+		background-position: center
+		background-size: cover
 		img
 			width: 100%
 			height: 100%
 	&__content
-		float: right
 		width: 270px
 		padding: 10px 15px
 	&__title
@@ -76,26 +174,3 @@ body
 		font-size: 25px
 		color: white
 		cursor: pointer
-.grid
-	text-align: center
-	&__unit
-		position: relative
-		display: inline-block
-		vertical-align: top
-		height: 293px
-		overflow: hidden
-		background-color: gray
-		cursor: pointer
-		img
-			position: absolute
-			top: 0
-			left: 0
-			width: 100%
-			height: 100%
-		&:hover
-			opacity: .7
-		&--30
-			width: 293px
-			margin: 0 38px 50px 0
-			&:nth-child(3n)
-				margin-right: 0

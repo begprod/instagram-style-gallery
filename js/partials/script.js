@@ -1,23 +1,26 @@
 $(document).ready(function () {
 	loadData();
 	var navState = function() {
-		$('.popup__nav--left').removeClass('popup__nav--disable');
-		$('.popup__nav--right').removeClass('popup__nav--disable');
+		var leftNavBtn = $('.popup__nav--left');
+		var rightNavBtn = $('.popup__nav--right');
+
+		leftNavBtn.removeClass('popup__nav--disable');
+		rightNavBtn.removeClass('popup__nav--disable');
 
 		var curIndex = $('.grid__unit--active').data('index');
 		navState.totalUnits = $('.grid__unit').length;
 
 
 		if (curIndex == 1) {
-			$('.popup__nav--left').addClass('popup__nav--disable');
+			leftNavBtn.addClass('popup__nav--disable');
 		} else {
-			$('.popup__nav--left').removeClass('popup__nav--disable');
+			leftNavBtn.removeClass('popup__nav--disable');
 		}
 
 		if (curIndex == navState.totalUnits) {
-			$('.popup__nav--right').addClass('popup__nav--disable');
+			rightNavBtn.addClass('popup__nav--disable');
 		} else {
-			$('.popup__nav--right').removeClass('popup__nav--disable');
+			rightNavBtn.removeClass('popup__nav--disable');
 		}
 	}
 
@@ -58,7 +61,7 @@ showModal = function(that) {
 	var imgs = that.data('img');
 
 	modalContent = '<div class="popup__close"><i class="fa fa-times" aria-hidden="true"></i></div><div class="popup__wrapper"><div class="popup__nav popup__nav--left"><i class="fa fa-chevron-left" aria-hidden="true"></i></div><div class="popup__nav popup__nav--right"><i class="fa fa-chevron-right" aria-hidden="true"></i></div>';
-	modalContent += '<div class="popup__slider" style="background-image:url(' + imgs + ')">';
+	modalContent += '<div class="popup__img" style="background-image:url(' + imgs + ')">';
 	modalContent += '</div>';
 	modalContent += '<div class="popup__content">';
 	modalContent += '<h3 class="popup__title">' + title + '</h3>';
@@ -66,14 +69,22 @@ showModal = function(that) {
 	modalContent += '</div>';
 	modalContent += '</div>';
 
-	$('.popup').html(modalContent);
+	var popupBlock = $('.popup');
+	var popupOverlay = $('.overlay');
 
-	$('.popup').addClass('popup--active');
-	$('.overlay').addClass('overlay--active');
+	popupBlock.html(modalContent);
+
+	popupBlock.addClass('popup--active');
+	popupOverlay.addClass('overlay--active');
 
 	$('.popup__close').click(function() {
 		$(this).parent().removeClass('popup--active');
-		$('.overlay').removeClass('overlay--active');
+		popupOverlay.removeClass('overlay--active');
+	});
+
+	popupOverlay.click(function() {
+		$(this).removeClass('overlay--active');
+		popupBlock.removeClass('popup--active');
 	});
 }
 
@@ -81,6 +92,7 @@ showModal = function(that) {
 
 
 function loadData() {
+	var profilePosts;
 	$.ajax({
 		type: 'get',
 		async: false,
@@ -88,7 +100,7 @@ function loadData() {
 		url: './data/images.json',
 		dataType: 'json',
 		success: function (response, status) {
-			$.each(response, function (i) {
+			$.each(response, function(i) {
 				$('.grid').append(
 					'<div class="grid__unit grid__unit--30" data-img="' 
 						+ response[i].img + 
@@ -101,10 +113,20 @@ function loadData() {
 					'" style="background-image: url(' 
 						+ response[i].img + 
 					')"><img class="visuallyhidden" src="' 
-						+  response[i].img + 
+						+ response[i].img + 
 					'"/></div>'
 				);
 			});
+			profilePosts = response.length;
+			$('.js-profile-posts').html(profilePosts);
 		}
 	});
 }
+
+
+function profileInfo(profileImg, profileName) {
+	$('.js-profile-photo').attr('src', profileImg);
+	$('.js-profile-name').html(profileName);
+}
+
+profileInfo('http://fillmurray.com/600/600', 'Fill_Murray');

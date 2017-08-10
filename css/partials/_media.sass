@@ -1,0 +1,43 @@
+@media screen and (max-width: $break-lg)
+	.wrapper
+		width: 95%
+	.grid
+		&__unit
+			&--30
+				flex-basis: 30%
+				width: 30%
+				height: 228px
+				margin-right: 5px
+				margin-bottom: 5px
+				&:nth-child(3n)
+					margin-right: 5px
+
+@media screen and (max-width: $break-md)
+	.grid
+		&__unit
+			&--30
+				height: 150px
+
+@media screen and (max-width: $break-sm)
+	.profile-header
+		.wrapper
+			flex-direction: column
+		&__left
+			max-width: 100%
+			margin-right: 0
+			margin-bottom: 20px
+		&__right
+			max-width: 100%
+		&__name
+			text-align: center
+		&__descr
+			text-align: center
+	.info-list
+		justify-content: center
+		&__item
+			margin-right: 20px
+			text-align: center
+	.grid
+		&__unit
+			&--30
+				height: 100px
