@@ -1,2 +1,2 @@
-# Gulp starter kit (sass/rigger)
-Starter kit for simple projects
+# Instagram style gallery
+![Instagram style gallery](https://raw.githubusercontent.com/begprod/instagram-style-gallery/master/images/scrn.png)
