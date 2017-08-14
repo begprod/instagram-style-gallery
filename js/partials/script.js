@@ -59,6 +59,7 @@ showModal = function(that) {
 	var title = that.data('title');
 	var descr = that.data('descr');
 	var imgs = that.data('img');
+	var likes = that.data('likes');
 
 	modalContent = '<div class="popup__close"><i class="fa fa-times" aria-hidden="true"></i></div><div class="popup__wrapper"><div class="popup__nav popup__nav--left"><i class="fa fa-chevron-left" aria-hidden="true"></i></div><div class="popup__nav popup__nav--right"><i class="fa fa-chevron-right" aria-hidden="true"></i></div>';
 	modalContent += '<div class="popup__img" style="background-image:url(' + imgs + ')">';
@@ -66,6 +67,7 @@ showModal = function(that) {
 	modalContent += '<div class="popup__content">';
 	modalContent += '<h3 class="popup__title">' + title + '</h3>';
 	modalContent += '<p class="popup__descr">' + descr + '</p>';
+	modalContent += '<p class="popup__likes">' + likes + '</p>';
 	modalContent += '</div>';
 	modalContent += '</div>';
 
@@ -110,6 +112,8 @@ function loadData() {
 						+ response[i].location + 
 					'" data-index="' 
 						+ response[i].id + 
+					'" data-likes="'
+						+ response[i].likes +
 					'" style="background-image: url(' 
 						+ response[i].img + 
 					')"><img class="visuallyhidden" src="' 

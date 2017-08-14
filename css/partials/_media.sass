@@ -11,12 +11,34 @@
 				margin-bottom: 5px
 				&:nth-child(3n)
 					margin-right: 5px
+	.popup
+		width: 90%
+		height: auto
+		&__img
+			width: 70%
+		&__content
+			width: 30%
 
 @media screen and (max-width: $break-md)
 	.grid
 		&__unit
 			&--30
 				height: 150px
+	.popup
+		width: 85%
+		&__img
+			float: none
+			width: 100%
+			height: 400px
+		&__content
+			float: none
+			width: 100%
+			height: 150px
+			overflow-x: auto
+		&__nav
+			display: none
+		&__close
+			display: none
 
 @media screen and (max-width: $break-sm)
 	.profile-header
@@ -41,3 +63,19 @@
 		&__unit
 			&--30
 				height: 100px
+	.popup
+		&__img
+			height: 300px
+
+@media screen and (orientation: landscape) and (max-width:$break-md)
+	.popup
+		width: 90%
+		top: 5%
+		&__img
+			float: left
+			width: 70%
+			height: 300px
+		&__content
+			float: right
+			width: 30%
+			height: 300px
